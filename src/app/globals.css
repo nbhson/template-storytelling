@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+ * Design tokens — dark, premium, minimal.
+ * ------------------------------------------------------------------------- */
+:root {
+  /* Font stacks (fallbacks for the --font-* vars referenced in tailwind config).
+     Kept system-native so the build has zero network/download dependencies. */
+  --font-inter: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display',
+    'Segoe UI', Roboto, sans-serif;
+  --font-space-grotesk: 'Space Grotesk', -apple-system, BlinkMacSystemFont,
+    'SF Pro Display', 'Segoe UI', sans-serif;
+
+  --bg-base: #05060a;
+  --bg-surface: #0b0d14;
+  --text-primary: #f5f7ff;
+  --text-muted: rgba(245, 247, 255, 0.5);
+  --line: rgba(255, 255, 255, 0.08);
+  --accent: #7c8cff;
+}
+
+/* ---------------------------------------------------------------------------
+ * Base
+ * ------------------------------------------------------------------------- */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: auto;
+  background: var(--bg-base);
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-inter);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  /* Native scrollbar hidden — Lenis owns the scroller. */
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+::selection {
+  background: rgba(124, 140, 255, 0.35);
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------------------------------
+ * Typography helpers
+ * ------------------------------------------------------------------------- */
+.font-display {
+  font-family: var(--font-space-grotesk);
+}
+
+/* ---------------------------------------------------------------------------
+ * Accessibility — the experience degrades gracefully.
+ * ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Thin, subtle focus ring consistent across the dark theme. */
+:focus-visible {
+  outline: 2px solid rgba(124, 140, 255, 0.7);
+  outline-offset: 3px;
+  border-radius: 6px;
+}

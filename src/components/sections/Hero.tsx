@@ -40,10 +40,10 @@ export function Hero() {
       </p>
 
       <div data-hero-cta className="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <Button variant="primary" href="#problem">
+        <Button variant="primary" href="#discovery">
           Enter the core
         </Button>
-        <Button variant="ghost" href="#technology">
+        <Button variant="ghost" href="#deep-dive">
           See it explode
         </Button>
       </div>

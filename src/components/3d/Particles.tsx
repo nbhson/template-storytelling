@@ -34,6 +34,7 @@ const vertexShader = /* glsl */ `
 
   uniform float uTime;
   uniform float uSpread;
+  uniform float uMotion;
 
   void main() {
     vColor = aColor;
@@ -47,6 +48,10 @@ const vertexShader = /* glsl */ `
     // Scroll-driven dispersal.
     pos *= 1.0 + uSpread * 0.35;
 
+    // Energy follows intent — fast scroll pushes the dust outward harder so
+    // particles visibly react to how quickly the user is moving.
+    pos *= 1.0 + uMotion * 0.22;
+
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
 
     gl_PointSize = aScale * (90.0 / -mvPosition.z);
@@ -57,10 +62,12 @@ const vertexShader = /* glsl */ `
 const fragmentShader = /* glsl */ `
   varying vec3 vColor;
 
+  uniform float uOpacity;
+
   void main() {
     vec2 center = gl_PointCoord - 0.5;
     float dist = length(center);
-    float alpha = smoothstep(0.5, 0.05, dist) * 0.75;
+    float alpha = smoothstep(0.5, 0.05, dist) * 0.75 * uOpacity;
     gl_FragColor = vec4(vColor, alpha);
   }
 `;
@@ -129,6 +136,8 @@ export function Particles() {
       uniforms: {
         uTime: { value: 0 },
         uSpread: { value: 1 },
+        uOpacity: { value: 1 },
+        uMotion: { value: 0 },
       },
     });
     return { material: mat, geometry: buildGeometry(seeds) };
@@ -142,6 +151,11 @@ export function Particles() {
     if (mesh) {
       material.uniforms.uTime.value = state.clock.elapsedTime;
       material.uniforms.uSpread.value = snapshot.particleSpread;
+      material.uniforms.uOpacity.value = snapshot.particleOpacity;
+      // Smooth the scroll-velocity reaction so it doesn't jitter.
+      material.uniforms.uMotion.value +=
+        (snapshot.motion * 0.8 - material.uniforms.uMotion.value) *
+        (1 - Math.exp(-4 * delta));
 
       for (let i = 0; i < COUNT; i++) {
         const seed = seeds[i];

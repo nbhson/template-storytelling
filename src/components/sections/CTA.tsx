@@ -44,7 +44,7 @@ export function CTA() {
           <Button variant="primary" href="#">
             Request early access
           </Button>
-          <Button variant="ghost" href="#technology">
+          <Button variant="ghost" href="#deep-dive">
             Watch the core
           </Button>
         </div>

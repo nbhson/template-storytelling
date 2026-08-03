@@ -15,6 +15,8 @@ interface GlassCardProps {
   className?: string;
   delay?: number;
   'data-solution-card'?: number;
+  'data-feature-card'?: number;
+  'data-feature-card-index'?: number;
 }
 
 export function GlassCard({

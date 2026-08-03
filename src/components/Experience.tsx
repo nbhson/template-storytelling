@@ -8,10 +8,18 @@
  *  - Lenis smooth scroll (native scroll + GSAP ticker fusion)
  *  - The 3D stage — code-split & SSR-disabled so three.js never touches the
  *    server and the initial HTML stays light
- *  - All five story beats as stacked sections (transparent backgrounds, so the
+ *  - All six story beats as stacked sections (transparent backgrounds, so the
  *    fixed 3D canvas reads through them)
  *  - The master GSAP timeline — created exactly once inside the GSAP context,
  *    so it is automatically reverted on unmount
+ *
+ * The six beats:
+ *   1. Hero              — the model floats, breathing, alone in the dark
+ *   2. Discovery         — camera dolly-in, model slips left, content slides right
+ *   3. Technology        — orbit to the far side; the inner core is revealed
+ *   4. Deep Dive         — exploded technical view, camera circles close
+ *   5. Feature Showcase  — reassembly + 90° spin, feature cards sequence
+ *   6. CTA               — calm convergence, one final elegant rotation
  *
  * Scroll architecture (one timeline, one progress value):
  *   Lenis → native scroll → ScrollTrigger (scrub) → master timeline
@@ -28,9 +36,10 @@ import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
 import { BackgroundGradient } from '@/components/ui/BackgroundGradient';
 import { Noise } from '@/components/ui/Noise';
 import { Hero } from '@/components/sections/Hero';
-import { Problem } from '@/components/sections/Problem';
-import { Solution } from '@/components/sections/Solution';
+import { Discovery } from '@/components/sections/Discovery';
 import { Technology } from '@/components/sections/Technology';
+import { DeepDive } from '@/components/sections/DeepDive';
+import { FeatureShowcase } from '@/components/sections/FeatureShowcase';
 import { CTA } from '@/components/sections/CTA';
 
 /**
@@ -64,9 +73,10 @@ export function Experience() {
 
         <main className="relative z-10">
           <Hero />
-          <Problem />
-          <Solution />
+          <Discovery />
           <Technology />
+          <DeepDive />
+          <FeatureShowcase />
           <CTA />
         </main>
 

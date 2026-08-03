@@ -12,9 +12,10 @@ import { gsap } from '@/lib/gsap';
  */
 const LINKS = [
   { label: 'Vision', beat: 'hero' },
-  { label: 'Problem', beat: 'problem' },
-  { label: 'Solution', beat: 'solution' },
+  { label: 'Discover', beat: 'discovery' },
   { label: 'Tech', beat: 'technology' },
+  { label: 'Deep Dive', beat: 'deep-dive' },
+  { label: 'Features', beat: 'feature-showcase' },
   { label: 'Contact', beat: 'cta' },
 ] as const;
 
